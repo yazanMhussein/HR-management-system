@@ -60,27 +60,3 @@ let employees = [
 for (const employee of employees) {
     employee.render();
 }
-
-/*
-1) After calculating the random salary you should calculate the net salary where the tax percent is 7.5.
-Level	     Min	Max
-Senior	    1500	2000
-Mid-Senior	1000	1500
-Junior	    500	    1000
-*/
-/*
-2) You will create a render prototype function to render each employee name with their salary in the home page.
-*/
-/*
-3) Use the information shown in the table below to create employees instances.
-*/
-/*
-Employee ID	Full Name	Department	      Level
-1000	Ghazi Samer	    Administration	 Senior
-1001	Lana Ali	    Finance	         Senior
-1002	Tamara Ayoub	Marketing	     Senior
-1003	Safi Walid	    Administration	 Mid-Senior
-1004	Omar Zaid	    Development	     Senior
-1005	Rana Saleh	    Development	     Junior
-1006	Hadi Ahmad	    Finance	         Mid-Senior
-*/
