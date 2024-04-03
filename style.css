@@ -1,0 +1,47 @@
+/* Center align the navigation links */
+.navbar {
+    text-align: center;
+}
+
+/* Flex container for employee cards */
+.employee-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Individual employee card */
+.employee-card {
+    margin: 20px;
+    width: 250px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
+
+/* Employee image */
+.employee-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px 8px 0 0; /* Rounded corners for the image */
+}
+
+/* Employee information box */
+.employee-info {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 0 0 8px 8px; /* Rounded corners for the info box */
+}
+
+/* Styling for employee info paragraphs */
+.employee-info p {
+    margin: 5px 0;
+}
+
+/* Center align the form */
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}

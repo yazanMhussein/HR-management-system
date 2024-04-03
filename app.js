@@ -1,8 +1,8 @@
 class Employee{
-    constructor(id,fullName,depatment,level,imageUrl){
+    constructor(id,fullName,department,level,imageUrl){
         this.id=id;
         this.fullName=fullName;
-        this.depatment=depatment;
+        this.department=department;
         this.level=level;
         this.imageUrl=imageUrl;
         this.salary= this.calculateSalary();
@@ -32,55 +32,54 @@ calculateSalary(){
     return netSalary;
 }
 
-render(){
-    console.log(`${this.fullName}: $${this.salary.toFixed(2)}`);
-    // Add row to the HTML table
-    const tableBody = document.querySelector('tbody');
-    const row = document.createElement('tr');
-    row.innerHTML = `
-        <td>${this.id}</td>
-        <td>${this.fullName}</td>
-        <td>${this.department}</td>
-        <td>${this.level}</td>
-        <td>$${this.salary.toFixed(2)}</td>
+render() {
+    const employeeCards = document.getElementById('employeeCards');
+    const card = document.createElement('div');
+    card.classList.add('employee-card');
+    card.innerHTML = `
+        <img src="${this.imageUrl}" alt="${this.fullName}">
+        <div class="employee-info">
+            <p><strong>ID:</strong> ${this.id}</p>
+            <p><strong>Name:</strong> ${this.fullName}</p>
+            <p><strong>Department:</strong> ${this.department}</p>
+            <p><strong>Level:</strong> ${this.level}</p>
+            <p><strong>Salary:</strong> $${this.salary.toFixed(2)}</p>
+        </div>
     `;
-    tableBody.appendChild(row);
+    employeeCards.appendChild(card);
 }
 }
+function generateEmployeeId() {
+    return Math.floor(1000 + Math.random() * 9000);
+}
+document.getElementById('addEmployeeForm').addEventListener('submit', (event) => {
+    event.preventDefault();
+    const fullName = document.getElementById('fullName').value;
+    const department = document.getElementById('department').value;
+    const level = document.getElementById('level').value;
+    const imageUrl = document.getElementById('imageUrl').value;
+    const id = generateEmployeeId();
+    const newEmployee = new Employee(id, fullName, department, level, imageUrl);
+    newEmployee.render();
+});
+function renderEmployees() {
+    let cardContainer = document.querySelector('.employee-cards');
+    cardContainer.innerHTML = '';
+    employees.forEach(employee => {
+        cardContainer.innerHTML += employee.render();
+    });
+}
+
 let employees = [
-    new Employee(1000, "Ghazi Samer", "Administration", "Senior", "https://example.com/image1.jpg"),
-    new Employee(1001, "Lana Ali", "Finance", "Senior", "https://example.com/image2.jpg"),
-    new Employee(1002, "Tamara Ayoub", "Marketing", "Senior", "https://example.com/image3.jpg"),
-    new Employee(1003, "Safi Walid", "Administration", "Mid-Senior", "https://example.com/image4.jpg"),
-    new Employee(1004, "Omar Zaid", "Development", "Senior", "https://example.com/image5.jpg"),
-    new Employee(1005, "Rana Saleh", "Development", "Junior", "https://example.com/image6.jpg"),
-    new Employee(1006, "Hadi Ahmad", "Finance", "Mid-Senior", "https://example.com/image7.jpg")
+    new Employee(1000, "Ghazi Samer", "Administration", "Senior", "assets/Ghazi.jpg"),
+    new Employee(1001, "Lana Ali", "Finance", "Senior", "assets/Lana.jpg"),
+    new Employee(1002, "Tamara Ayoub", "Marketing", "Senior", "assets/Tamara.jpg"),
+    new Employee(1003, "Safi Walid", "Administration", "Mid-Senior", "assets/Safi.jpg"),
+    new Employee(1004, "Omar Zaid", "Development", "Senior", "assets/Omar.jpg"),
+    new Employee(1005, "Rana Saleh", "Development", "Junior", "assets/Rana.jpg"),
+    new Employee(1006, "Hadi Ahmad", "Finance", "Mid-Senior", "assets/Hadi.jpg")
 ];
 
 for (const employee of employees) {
     employee.render();
 }
-
-/*
-1) After calculating the random salary you should calculate the net salary where the tax percent is 7.5.
-Level	     Min	Max
-Senior	    1500	2000
-Mid-Senior	1000	1500
-Junior	    500	    1000
-*/
-/*
-2) You will create a render prototype function to render each employee name with their salary in the home page.
-*/
-/*
-3) Use the information shown in the table below to create employees instances.
-*/
-/*
-Employee ID	Full Name	Department	      Level
-1000	Ghazi Samer	    Administration	 Senior
-1001	Lana Ali	    Finance	         Senior
-1002	Tamara Ayoub	Marketing	     Senior
-1003	Safi Walid	    Administration	 Mid-Senior
-1004	Omar Zaid	    Development	     Senior
-1005	Rana Saleh	    Development	     Junior
-1006	Hadi Ahmad	    Finance	         Mid-Senior
-*/
