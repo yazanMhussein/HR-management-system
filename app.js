@@ -1,8 +1,8 @@
 class Employee{
-    constructor(id,fullName,depatment,level,imageUrl){
+    constructor(id,fullName,department,level,imageUrl){
         this.id=id;
         this.fullName=fullName;
-        this.depatment=depatment;
+        this.department=department;
         this.level=level;
         this.imageUrl=imageUrl;
         this.salary= this.calculateSalary();
