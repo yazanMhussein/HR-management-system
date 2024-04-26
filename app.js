@@ -92,6 +92,7 @@ let employees = [
 for (const employee of employees) {
     employee.render();
 }
+
 let employeesData = JSON.parse(localStorage.getItem('employees')) || [];
     employees = employeesData.map(data => new Employee(data.id, data.fullName, data.department, data.level, data.imageUrl));
 for (const employee of employees) {
