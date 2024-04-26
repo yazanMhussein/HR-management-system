@@ -1,3 +1,4 @@
+
 class Employee{
     constructor(id,fullName,department,level,imageUrl){
         this.id=id;
@@ -7,6 +8,7 @@ class Employee{
         this.imageUrl=imageUrl;
         this.salary= this.calculateSalary();
     }
+
 
 calculateSalary(){
     let minSalary, maxSalary;
@@ -31,7 +33,7 @@ calculateSalary(){
     let netSalary = salary - (salary * 0.075);
     return netSalary;
 }
-
+//
 render() {
     const employeeCards = document.getElementById('employeeCards');
     const card = document.createElement('div');
@@ -47,10 +49,15 @@ render() {
         </div>
     `;
     employeeCards.appendChild(card);
+//
+ }
 }
-}
+
 function generateEmployeeId() {
     return Math.floor(1000 + Math.random() * 9000);
+}
+function saveEmployees() {
+    localStorage.setItem('employees', JSON.stringify(employees));
 }
 document.getElementById('addEmployeeForm').addEventListener('submit', (event) => {
     event.preventDefault();
@@ -62,6 +69,8 @@ document.getElementById('addEmployeeForm').addEventListener('submit', (event) =>
     const newEmployee = new Employee(id, fullName, department, level, imageUrl);
     newEmployee.render();
 });
+
+
 function renderEmployees() {
     let cardContainer = document.querySelector('.employee-cards');
     cardContainer.innerHTML = '';
@@ -83,3 +92,12 @@ let employees = [
 for (const employee of employees) {
     employee.render();
 }
+let employeesData = JSON.parse(localStorage.getItem('employees')) || [];
+    employees = employeesData.map(data => new Employee(data.id, data.fullName, data.department, data.level, data.imageUrl));
+for (const employee of employees) {
+    employee.render();
+   
+}
+
+
+     
