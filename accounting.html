@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <nav class="navbar">
@@ -11,6 +12,41 @@
         <a href="./accounting.html"> Accounting</a>
     </nav>
     <main>
+        <div id="departmentTable"></div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Department</th>
+                    <th># of employees</th>
+                    <th>Total Salary</th>
+                    <th>Average Salary</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Replace the dummy data with your actual department information -->
+                <tr>
+                    <td>Administration</td>
+                    <td>10</td>
+                    <td>$500,000</td>
+                    <td>$50,000</td>
+                </tr>
+                <tr>
+                    <td>Marketing</td>
+                    <td>8</td>
+                    <td>$420,000</td>
+                    <td>$52,500</td>
+                </tr>
+                <!-- Add more rows for other departments -->
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>Total</td>
+                    <td>18</td>
+                    <td>$920,000</td>
+                    <td>$51,111.11</td>
+                </tr>
+            </tfoot>
+        </table>
     </main>
 </body>
 <footer>
@@ -18,4 +54,6 @@
     <p class="facebook"></p> 
     <p class="twitter"></p>
 </footer>
+<script src="app.js"></script>
+<script src="accounting.js"></script>
 </html>

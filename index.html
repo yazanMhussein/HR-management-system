@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <nav class="navbar">
@@ -11,22 +12,37 @@
         <a href="./accounting.html"> Accounting</a>
     </nav>
     <main>
-        <table>
-            <thead>
-                <tr>
-                    <th>Employee ID</th>
-                    <th>Full Name</th>
-                    <th>Department</th>
-                    <th>Level</th>
-                    <th>Salary</th>
-                    <th>Image</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>   
-        </table>
+        <section class="form-container">
+            <form id="addEmployeeForm" class="employee-form">
+                <label for="fullName">Full Name:</label>
+                <input type="text" id="fullName" name="fullName" required><br>
+    
+                <label for="department">Department:</label>
+                <select id="department" name="department">
+                    <option value="Administration">Administration</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Development">Development</option>
+                    <option value="Finance">Finance</option>
+                </select><br>
+    
+                <label for="level">Level:</label>
+                <select id="level" name="level">
+                    <option value="Junior">Junior</option>
+                    <option value="Mid-Senior">Mid-Senior</option>
+                    <option value="Senior">Senior</option>
+                </select><br>
+    
+                <label for="imageUrl">Image URL:</label>
+                <input type="text" id="imageUrl" name="imageUrl" required><br>
+    
+                <input type="submit" value="Submit">
+            </form>
+        </section>
+        <section id="employeeCards" class="employee-cards">
+        </section>
     </main>
     <script src="app.js"></script>
+    <!-- <script src="accounting.js"></script> -->
 </body>
 <footer>
     <p>&copy; 2024</p>
