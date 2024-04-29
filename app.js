@@ -1,104 +1,106 @@
-
-class Employee{
-    constructor(id,fullName,department,level,imageUrl){
-        this.id=id;
-        this.fullName=fullName;
-        this.department=department;
-        this.level=level;
-        this.imageUrl=imageUrl;
-        this.salary= this.calculateSalary();
+'use strict';
+//this is constructor it's a blueprint for your employees. we us this with our prototype to create a new employees 
+let employees = [];
+let employeesKey = 'employees';
+class Employee {
+    constructor(fullName, department, level, imageUrl) {
+        this.id = generateEmployeeId();
+        this.fullName = fullName;
+        this.department = department;
+        this.level = level;
+        this.imageUrl = imageUrl;
+        this.salary = this.calculateSalary();
+        employees.push(this);
     }
-
-
-calculateSalary(){
-    let minSalary, maxSalary;
+    
+}
+//new calculateSalary that is random
+Employee.prototype.calculateSalary = function () {
+    function generateRandomSalary(minSalary, maxSalary) {
+        return Number.parseInt(Math.floor(Math.random() * (maxSalary - minSalary + 1)) + minSalary);
+    }
+// we are doing a test to see what level is the employees in
     switch (this.level) {
         case 'Senior':
-            minSalary = 1500;
-            maxSalary = 2000;
-            break;
+            return generateRandomSalary(1500, 2000);
         case 'Mid-Senior':
-            minSalary = 1000;
-            maxSalary = 1500;
-            break;
+            return generateRandomSalary(1000, 1500);
         case 'Junior':
-            minSalary = 500;
-            maxSalary = 1000;
-            break;
-        default:
-            minSalary = 0;
-            maxSalary = 0;
+            return generateRandomSalary(500, 1000);
     }
-    let salary = Math.floor(Math.random() * (maxSalary - minSalary + 1)) + minSalary;
-    let netSalary = salary - (salary * 0.075);
-    return netSalary;
 }
-//
-render() {
+////here I'M create the card for the empolyee
+  function render(employee) {
     const employeeCards = document.getElementById('employeeCards');
     const card = document.createElement('div');
     card.classList.add('employee-card');
     card.innerHTML = `
-        <img src="${this.imageUrl}" alt="${this.fullName}">
-        <div class="employee-info">
-            <p><strong>ID:</strong> ${this.id}</p>
-            <p><strong>Name:</strong> ${this.fullName}</p>
-            <p><strong>Department:</strong> ${this.department}</p>
-            <p><strong>Level:</strong> ${this.level}</p>
-            <p><strong>Salary:</strong> $${this.salary.toFixed(2)}</p>
-        </div>
-    `;
+    <img src="${employee.imageUrl}" alt="${employee.fullName}">
+    <div class="employee-info">
+        <p><strong>ID:</strong> ${employee.id}</p>
+        <p><strong>Name:</strong> ${employee.fullName}</p>
+        <p><strong>Department:</strong> ${employee.department}</p>
+        <p><strong>Level:</strong> ${employee.level}</p>
+        <p><strong>Salary:</strong> ${employee.salary}</p>
+    </div>
+`;
     employeeCards.appendChild(card);
-//
- }
 }
-
+// this is the employee id for the 4 digits
 function generateEmployeeId() {
-    return Math.floor(1000 + Math.random() * 9000);
+    return 1000 + employees.length;
 }
-function saveEmployees() {
-    localStorage.setItem('employees', JSON.stringify(employees));
-}
+//this is where the form take the input that we put inside of it and add to the html body
 document.getElementById('addEmployeeForm').addEventListener('submit', (event) => {
     event.preventDefault();
     const fullName = document.getElementById('fullName').value;
     const department = document.getElementById('department').value;
     const level = document.getElementById('level').value;
     const imageUrl = document.getElementById('imageUrl').value;
-    const id = generateEmployeeId();
-    const newEmployee = new Employee(id, fullName, department, level, imageUrl);
-    newEmployee.render();
+    let emp = new Employee(fullName, department, level, imageUrl);
+    saveEmployees()
+    console.log("what is this doing ",saveEmployees())
+    render(emp);
 });
 
 
-function renderEmployees() {
-    let cardContainer = document.querySelector('.employee-cards');
-    cardContainer.innerHTML = '';
+// here is all of your employees data that save in .js code
+    new Employee( "Ghazi Samer", "Administration", "Senior", "assets/Ghazi.jpg"),
+    new Employee( "Lana Ali", "Finance", "Senior", "assets/Lana.jpg"),
+    new Employee( "Tamara Ayoub", "Marketing", "Senior", "assets/Tamara.jpg"),
+    new Employee( "Safi Walid", "Administration", "Mid-Senior", "assets/Safi.jpg"),
+    new Employee( "Omar Zaid", "Development", "Senior", "assets/Omar.jpg"),
+    new Employee( "Rana Saleh", "Development", "Junior", "assets/Rana.jpg"),
+    new Employee( "Hadi Ahmad", "Finance", "Mid-Senior", "assets/Hadi.jpg")
+
+//this loop thougthout the employees list of data then puts it in the html body
+function renderData() {
+    employees = getDataFromLocalStorage();
     employees.forEach(employee => {
-        cardContainer.innerHTML += employee.render();
+        render(employee);
     });
+        
+}
+// we are get the employee information
+function getDataFromLocalStorage() {
+    return  JSON.parse(localStorage.getItem(employeesKey));
+}
+// we are save the employees information that we got form local storage
+function saveEmployees() {
+    localStorage.setItem(employeesKey, JSON.stringify(employees));
 }
 
-let employees = [
-    new Employee(1000, "Ghazi Samer", "Administration", "Senior", "assets/Ghazi.jpg"),
-    new Employee(1001, "Lana Ali", "Finance", "Senior", "assets/Lana.jpg"),
-    new Employee(1002, "Tamara Ayoub", "Marketing", "Senior", "assets/Tamara.jpg"),
-    new Employee(1003, "Safi Walid", "Administration", "Mid-Senior", "assets/Safi.jpg"),
-    new Employee(1004, "Omar Zaid", "Development", "Senior", "assets/Omar.jpg"),
-    new Employee(1005, "Rana Saleh", "Development", "Junior", "assets/Rana.jpg"),
-    new Employee(1006, "Hadi Ahmad", "Finance", "Mid-Senior", "assets/Hadi.jpg")
-];
-
-for (const employee of employees) {
-    employee.render();
+//To ensure that the hard coded data is always in the local storage,
+// even if I deleted the data from local storage, 
+//so when I refresh the page the data will be stroed in the local storage again
+function fillLocalStorageIfEmpty() {
+    if (getDataFromLocalStorage() == null) {
+        saveEmployees();
+    }
 }
-
-let employeesData = JSON.parse(localStorage.getItem('employees')) || [];
-    employees = employeesData.map(data => new Employee(data.id, data.fullName, data.department, data.level, data.imageUrl));
-for (const employee of employees) {
-    employee.render();
-   
-}
+fillLocalStorageIfEmpty();
+renderData();
 
 
-     
+
+
